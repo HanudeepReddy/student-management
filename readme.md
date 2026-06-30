@@ -1,7 +1,7 @@
 This is a simple Student Management application developed using StencilJS. The application allows users to add, view, search, edit and delete student records. It is mainly created to understand different StencilJS concepts by implementing them in a real project.
 
-      Stencil Topics Used
-      ----------------------
+Stencils Topics Used
+    -------------
 
 1. Initial Setup using npm
 
