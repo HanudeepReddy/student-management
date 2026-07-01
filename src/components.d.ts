@@ -5,64 +5,103 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Student } from "./interfaces/student";
+export { Student } from "./interfaces/student";
 export namespace Components {
-    interface MyComponent {
+    interface AppRoot {
+    }
+    interface StudentForm {
+    }
+    interface StudentList {
         /**
-          * The first name
+          * @default []
          */
-        "first": string;
-        /**
-          * The last name
-         */
-        "last": string;
-        /**
-          * The middle name
-         */
-        "middle": string;
+        "students": Student[];
     }
 }
+export interface StudentFormCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStudentFormElement;
+}
+export interface StudentListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLStudentListElement;
+}
 declare global {
-    interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
+    interface HTMLAppRootElement extends Components.AppRoot, HTMLStencilElement {
     }
-    var HTMLMyComponentElement: {
-        prototype: HTMLMyComponentElement;
-        new (): HTMLMyComponentElement;
+    var HTMLAppRootElement: {
+        prototype: HTMLAppRootElement;
+        new (): HTMLAppRootElement;
+    };
+    interface HTMLStudentFormElementEventMap {
+        "studentAdded": Student;
+    }
+    interface HTMLStudentFormElement extends Components.StudentForm, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLStudentFormElementEventMap>(type: K, listener: (this: HTMLStudentFormElement, ev: StudentFormCustomEvent<HTMLStudentFormElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLStudentFormElementEventMap>(type: K, listener: (this: HTMLStudentFormElement, ev: StudentFormCustomEvent<HTMLStudentFormElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLStudentFormElement: {
+        prototype: HTMLStudentFormElement;
+        new (): HTMLStudentFormElement;
+    };
+    interface HTMLStudentListElementEventMap {
+        "deleteStudent": number;
+        "editStudent": Student;
+    }
+    interface HTMLStudentListElement extends Components.StudentList, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLStudentListElementEventMap>(type: K, listener: (this: HTMLStudentListElement, ev: StudentListCustomEvent<HTMLStudentListElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLStudentListElementEventMap>(type: K, listener: (this: HTMLStudentListElement, ev: StudentListCustomEvent<HTMLStudentListElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLStudentListElement: {
+        prototype: HTMLStudentListElement;
+        new (): HTMLStudentListElement;
     };
     interface HTMLElementTagNameMap {
-        "my-component": HTMLMyComponentElement;
+        "app-root": HTMLAppRootElement;
+        "student-form": HTMLStudentFormElement;
+        "student-list": HTMLStudentListElement;
     }
 }
 declare namespace LocalJSX {
-    interface MyComponent {
-        /**
-          * The first name
-         */
-        "first"?: string;
-        /**
-          * The last name
-         */
-        "last"?: string;
-        /**
-          * The middle name
-         */
-        "middle"?: string;
+    interface AppRoot {
     }
-
-    interface MyComponentAttributes {
-        "first": string;
-        "middle": string;
-        "last": string;
+    interface StudentForm {
+        "onStudentAdded"?: (event: StudentFormCustomEvent<Student>) => void;
     }
-
+    interface StudentList {
+        "onDeleteStudent"?: (event: StudentListCustomEvent<number>) => void;
+        "onEditStudent"?: (event: StudentListCustomEvent<Student>) => void;
+        /**
+          * @default []
+         */
+        "students"?: Student[];
+    }
     interface IntrinsicElements {
-        "my-component": Omit<MyComponent, keyof MyComponentAttributes> & { [K in keyof MyComponent & keyof MyComponentAttributes]?: MyComponent[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `attr:${K}`]?: MyComponentAttributes[K] } & { [K in keyof MyComponent & keyof MyComponentAttributes as `prop:${K}`]?: MyComponent[K] };
+        "app-root": AppRoot;
+        "student-form": StudentForm;
+        "student-list": StudentList;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "my-component": LocalJSX.IntrinsicElements["my-component"] & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "app-root": LocalJSX.IntrinsicElements["app-root"] & JSXBase.HTMLAttributes<HTMLAppRootElement>;
+            "student-form": LocalJSX.IntrinsicElements["student-form"] & JSXBase.HTMLAttributes<HTMLStudentFormElement>;
+            "student-list": LocalJSX.IntrinsicElements["student-list"] & JSXBase.HTMLAttributes<HTMLStudentListElement>;
         }
     }
 }
